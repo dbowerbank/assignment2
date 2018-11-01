@@ -1,0 +1,21 @@
+SHOW DATABASES;
+
+DROP DATABASE tbowerbaassign2db;
+
+CREATE DATABASE tbowerbaassign2db;
+
+USE tbowerbaassign2db;
+
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE TABLE product(productID CHAR(2),description VARCHAR(30), cost FLOAT,quantity INT, PRIMARY KEY(productID));
+
+CREATE TABLE agent(agentID CHAR(2), firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), commission INT, PRIMARY KEY(agentID));
+
+CREATE TABLE customer(customerID CHAR(2), firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), phone INT, agentID CHAR(2), PRIMARY KEY(customerID), FOREIGN KEY(agentID) REFERENCES agent(agentID));
+
+CREATE TABLE purchases(productID CHAR(2), customerID CHAR(2), quantitypurchased INT, PRIMARY KEY(productID, customerID), FOREIGN KEY(productID) REFERENCES product(productID), FOREIGN KEY(customerID) REFERENCES customer(customerID));
