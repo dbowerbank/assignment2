@@ -1,3 +1,4 @@
+-- create the databases
 SHOW DATABASES;
 
 DROP DATABASE tbowerbaassign2db;
