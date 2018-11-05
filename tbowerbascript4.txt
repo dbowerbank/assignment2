@@ -1,0 +1,21 @@
+USE tbowerbaassign2db;
+
+SHOW TABLES;
+
+SELECT * FROM agent;
+SELECT * FROM product;
+SELECT * FROM customer;
+SELECT * FROM purchases;
+
+CREATE VIEW customerpurchases AS SELECT firstname, lastname, description, cost, quantitypurchased, cost * quantitypurchased AS 'total' FROM customer, product, purchases WHERE customer.customerID = purchases.customerID AND product.productID = purchases.productID ORDER BY lastname;
+
+SELECT * FROM customerpurchases;
+
+SELECT * FROM customerpurchases WHERE (total > 100);
+
+DELETE FROM product WHERE description = 'Scooters';
+SELECT * FROM product;
+
+DELETE FROM agent WHERE city = 'Springfield';
+-- agents cannot be deleted when they are referenced in another table, agentID is a foreign key in the customer table
+

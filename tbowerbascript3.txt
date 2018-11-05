@@ -1,0 +1,31 @@
+USE tbowerbaassign2db;
+-- query 1
+SELECT description FROM product;
+-- query 2
+SELECT DISTINCT city FROM customer;
+-- query 3
+SELECT * FROM agent ORDER BY city;
+-- query 4
+SELECT firstname, lastname FROM customer WHERE city = 'Springfield';
+-- query 5
+SELECT lastname FROM customer WHERE agentID = 11;
+-- query 6
+SELECT description FROM product WHERE description LIKE '%pad%' OR description LIKE '%Pad%';
+-- query 7
+SELECT lastname, description, quantitypurchased FROM customer, product, purchases WHERE customer.customerID = purchases.customerID AND product.productID = purchases.productID;
+-- query 8
+SELECT SUM(quantitypurchased) As "Homer's total purchases" FROM purchases WHERE customerID = (SELECT customerID FROM customer WHERE firstname = 'Homer');
+-- query 9
+SELECT firstname, lastname, SUM(quantitypurchased) FROM customer, purchases WHERE customer.customerID = purchases.customerID GROUP BY purchases.customerID;
+-- query 10
+SELECT description, quantity FROM product WHERE productID NOT IN (SELECT productID FROM purchases);
+-- query 11
+SELECT description, quantity FROM product WHERE productID NOT IN (SELECT productID FROM purchases WHERE customerID = (SELECT customerID FROM customer WHERE firstname = 'Fred' AND lastname = 'Flinstone'));
+-- query 12
+SELECT agent.firstname, agent.lastname, customer.firstname, customer.lastname FROM agent, customer WHERE agent.city = customer.city;
+-- query 13
+SELECT SUM(quantitypurchased) As 'Total kneepads purchased' FROM purchases WHERE productID = 78;
+-- query 14
+SELECT description FROM product WHERE productID IN (SELECT productID FROM purchases GROUP BY productID HAVING COUNT(productID) > 3);
+-- query 15
+SELECT firstname, lastname FROM agent WHERE agentID IN (SELECT agentID FROM customer WHERE customerID IN (SELECT customerID FROM purchases WHERE productID IN (SELECT productID from product WHERE description = 'Knee Pads')));
